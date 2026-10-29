@@ -122,7 +122,12 @@ export function MergePage({
               setIsDragging(true)
             }}
             onDragLeave={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+              const nextTarget = event.relatedTarget
+
+              if (
+                !(nextTarget instanceof Node) ||
+                !event.currentTarget.contains(nextTarget)
+              ) {
                 setIsDragging(false)
               }
             }}
@@ -175,13 +180,19 @@ export function MergePage({
                 <select
                   aria-label="Sort PDF files"
                   onChange={(event) =>
-                    setSortMode(event.currentTarget.value as SortMode)
+                    setSortMode(
+                      event.currentTarget.value === 'name'
+                        ? 'name'
+                        : event.currentTarget.value === 'date'
+                          ? 'date'
+                          : 'manual',
+                    )
                   }
                   value={sortMode}
                 >
                   <option value="manual">Manual order</option>
                   <option value="name">Name A–Z</option>
-                  <option value="date">Date added</option>
+                  <option value="date">File date</option>
                 </select>
               </label>
             )}

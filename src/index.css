@@ -64,7 +64,7 @@
     --text: #171512;
     --muted: #6b6863;
     --accent: #e84a08;
-    --accent-contrast: #fff;
+    --accent-contrast: #201008;
   }
 
   .skip-link {
@@ -381,6 +381,10 @@
     right: 20px;
     bottom: 20px;
     left: 20px;
+  }
+
+  .accordion-panel__content[hidden] {
+    display: none;
   }
 
   .accordion-panel__copy h2 {
@@ -1262,6 +1266,7 @@
   }
 
   .compression-option {
+    position: relative;
     display: flex;
     min-height: 68px;
     align-items: center;
@@ -1271,7 +1276,22 @@
     border-radius: 14px;
     background: transparent;
     color: var(--text);
+    cursor: pointer;
     text-align: left;
+  }
+
+  .compression-option input {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .compression-option input:focus-visible + .compression-option__radio {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   .compression-option--selected {
@@ -1402,6 +1422,7 @@
     margin: 0 0 9px;
     color: var(--muted);
     font-size: 11px;
+    line-height: 1.5;
   }
 
   .signature-canvas {
@@ -1576,27 +1597,38 @@
   }
 
   .tool-accordion {
-    height: 390px;
-    gap: 6px;
+    height: auto;
+    flex-direction: column;
+    gap: 7px;
   }
 
   .accordion-panel {
-    min-width: 36px;
-    flex-basis: 36px;
-    border-radius: 18px;
+    min-width: 0;
+    min-height: 46px;
+    flex-basis: 46px;
+    border-radius: 15px;
   }
 
   .accordion-panel--active {
-    flex-basis: 58%;
+    min-height: 270px;
+    flex-basis: 270px;
   }
 
   .accordion-panel:not(.accordion-panel--active) .accordion-panel__toggle {
-    left: 0;
+    top: 6px;
+    left: 9px;
+    flex-direction: row;
+    gap: 9px;
   }
 
   .accordion-panel:not(.accordion-panel--active) .icon-disc {
     width: 32px;
     height: 32px;
+  }
+
+  .accordion-panel__collapsed-title {
+    writing-mode: horizontal-tb;
+    transform: none;
   }
 
   .accordion-panel__content {
@@ -1712,6 +1744,50 @@
 
   .contract {
     min-height: 390px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1300px) {
+  .hero {
+    min-height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    padding-block: 36px;
+  }
+
+  .hero__copy {
+    max-width: 620px;
+  }
+
+  .hero__visual {
+    max-width: 704px;
+  }
+
+  .more-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .merge-layout,
+  .compress-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 16px;
+  }
+
+  .sign-layout {
+    grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 720px) {
+  .merge-layout,
+  .compress-layout,
+  .sign-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .options {
+    position: static;
   }
 
   .accordion-panel--active .paper-art__page--one {

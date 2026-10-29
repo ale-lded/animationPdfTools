@@ -28,10 +28,10 @@ export function ToolPlaceholder({ tool, onBack }: ToolPlaceholderProps) {
           <Icon name={metadata.icon} size={24} />
         </span>
         <p className="eyebrow">Folio PDF</p>
-        <h1 id="tool-placeholder-title">{metadata.title} PDF</h1>
+        <h1 id="tool-placeholder-title">{metadata.title}</h1>
         <p>
-          This interactive prototype is being built. Your files stay on your
-          device.
+          This tool is represented in the interface prototype. Its PDF workflow
+          is not implemented, and no files are processed.
         </p>
         <button className="button button--secondary" onClick={onBack} type="button">
           Back to all tools

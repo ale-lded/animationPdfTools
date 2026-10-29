@@ -85,28 +85,32 @@ export function CompressPage({ onBack }: CompressPageProps) {
 
         <aside aria-labelledby="compression-level-title" className="options compression">
           <h2 id="compression-level-title">Compression level</h2>
-          <div aria-label="Choose compression level" className="compression-levels" role="radiogroup">
+          <fieldset className="compression-levels">
+            <legend className="visually-hidden">Choose compression level</legend>
             {compressionLevels.map((option) => (
-              <button
-                aria-checked={level === option.id}
+              <label
                 className={`compression-option${level === option.id ? ' compression-option--selected' : ''}`}
                 key={option.id}
-                onClick={() => {
-                  setLevel(option.id)
-                  setDemoMessage(null)
-                }}
-                role="radio"
-                type="button"
               >
+                <input
+                  checked={level === option.id}
+                  name="compression-level"
+                  onChange={() => {
+                    setLevel(option.id)
+                    setDemoMessage(null)
+                  }}
+                  type="radio"
+                  value={option.id}
+                />
                 <span aria-hidden="true" className="compression-option__radio" />
                 <span className="compression-option__copy">
                   <strong>{option.title}</strong>
                   <small>{option.description}</small>
                 </span>
                 <span className="compression-option__size">{option.sampleSize}</span>
-              </button>
+              </label>
             ))}
-          </div>
+          </fieldset>
           <div className="estimate">
             <span>Sample estimated saving</span>
             <strong>−{selectedLevel.sampleSaving}</strong>

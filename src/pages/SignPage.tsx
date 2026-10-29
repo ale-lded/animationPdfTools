@@ -148,18 +148,16 @@ export function SignPage({ onBack }: SignPageProps) {
 
       <div className="sign-layout">
         <aside aria-label="Signature options" className="sign-controls">
-          <div aria-label="Signature method" className="signature-tabs" role="tablist">
+          <div aria-label="Signature method" className="signature-tabs" role="group">
             {(['draw', 'type', 'upload'] as const).map((option) => (
               <button
-                aria-selected={mode === option}
+                aria-pressed={mode === option}
                 className={`signature-tab${mode === option ? ' signature-tab--selected' : ''}`}
-                id={`signature-tab-${option}`}
                 key={option}
                 onClick={() => {
                   setMode(option)
                   setMessage(null)
                 }}
-                role="tab"
                 type="button"
               >
                 <Icon
@@ -172,15 +170,19 @@ export function SignPage({ onBack }: SignPageProps) {
           </div>
 
           <div
-            aria-labelledby={`signature-tab-${mode}`}
+            aria-label={`${mode} signature preview input`}
             className="signature-panel"
-            role="tabpanel"
+            role="region"
           >
             {mode === 'draw' ? (
               <>
-                <p className="signature-instruction">Draw with your mouse or finger.</p>
+                <p className="signature-instruction" id="signature-instruction">
+                  Draw with your mouse or finger, or switch to Type for a keyboard
+                  alternative.
+                </p>
                 <canvas
                   aria-label="Draw your signature in this area"
+                  aria-describedby="signature-instruction"
                   className="signature-canvas"
                   height={160}
                   onPointerCancel={finishDrawing}

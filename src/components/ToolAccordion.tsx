@@ -45,32 +45,34 @@ export function ToolAccordion({ onSelectTool }: ToolAccordionProps) {
                 </span>
               )}
             </button>
-            {isActive && (
-              <div
-                aria-labelledby={`tool-heading-${tool.id}`}
-                className="accordion-panel__content"
-                id={`tool-panel-${tool.id}`}
-                role="region"
-              >
-                <div className="accordion-panel__copy">
-                  <h2 id={`tool-heading-${tool.id}`}>{tool.title}</h2>
-                  <p>{tool.description}</p>
-                </div>
-                <ul aria-label={`${tool.title} highlights`} className="feature-pills">
-                  {tool.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-                <button
-                  className="button button--primary accordion-panel__action"
-                  onClick={() => onSelectTool(tool.id)}
-                  type="button"
-                >
-                  {tool.action}
-                  <Icon name="arrow" size={17} />
-                </button>
+            <div
+              aria-labelledby={`tool-heading-${tool.id}`}
+              className="accordion-panel__content"
+              hidden={!isActive}
+              id={`tool-panel-${tool.id}`}
+              role="region"
+            >
+              <div className="accordion-panel__copy">
+                <h2 id={`tool-heading-${tool.id}`}>{tool.title}</h2>
+                <p>{tool.description}</p>
               </div>
-            )}
+              <ul
+                aria-label={`${tool.title} highlights`}
+                className="feature-pills"
+              >
+                {tool.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+              <button
+                className="button button--primary accordion-panel__action"
+                onClick={() => onSelectTool(tool.id)}
+                type="button"
+              >
+                {tool.action}
+                <Icon name="arrow" size={17} />
+              </button>
+            </div>
           </article>
         )
       })}
