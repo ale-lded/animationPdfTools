@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { SiteHeader } from './components/SiteHeader'
+import { CompressPage } from './pages/CompressPage'
 import { HomePage } from './pages/HomePage'
 import { MergePage } from './pages/MergePage'
 import { ProgressPage } from './pages/ProgressPage'
@@ -41,6 +42,8 @@ export default function App() {
             onBack={() => setScreen('home')}
             onStart={() => setScreen('progress')}
           />
+        ) : screen === 'compress' ? (
+          <CompressPage onBack={() => setScreen('home')} />
         ) : screen === 'progress' ? (
           <ProgressPage
             fileCount={mergeFiles.length}
