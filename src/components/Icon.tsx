@@ -6,6 +6,7 @@ export type IconName =
   | 'close'
   | 'check'
   | 'extract'
+  | 'draw'
   | 'file'
   | 'image'
   | 'lock'
@@ -17,6 +18,7 @@ export type IconName =
   | 'sign'
   | 'split'
   | 'sun'
+  | 'type'
   | 'trash'
   | 'upload'
   | 'watermark'
@@ -37,6 +39,7 @@ const iconPaths: Record<IconName, ReactNode> = {
       <path d="M9 9h4m-4 4h4m4-5h3v12H9" />
     </>
   ),
+  draw: <path d="m4 20 4-1 10-10-3-3-10 10zM13 6l3 3" />,
   file: (
     <>
       <path d="M7 3h7l4 4v14H7z" />
@@ -97,6 +100,7 @@ const iconPaths: Record<IconName, ReactNode> = {
       <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
     </>
   ),
+  type: <path d="M5 5h14m-7 0v14m-4 0h8" />,
   trash: (
     <>
       <path d="M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14" />

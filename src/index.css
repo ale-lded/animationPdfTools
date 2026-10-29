@@ -1349,6 +1349,209 @@
     color: var(--muted);
     line-height: 1.5;
   }
+
+  .sign-layout {
+    display: grid;
+    grid-template-columns: minmax(270px, 360px) minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+  }
+
+  .sign-controls {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    background: var(--surface);
+  }
+
+  .signature-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    padding: 4px;
+    border-radius: 13px;
+    background: var(--surface-raised);
+  }
+
+  .signature-tab {
+    display: inline-flex;
+    min-height: 36px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding-inline: 5px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .signature-tab--selected {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+  }
+
+  .signature-panel {
+    min-height: 190px;
+    margin-top: 16px;
+  }
+
+  .signature-instruction {
+    margin: 0 0 9px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .signature-canvas {
+    display: block;
+    width: 100%;
+    height: 160px;
+    touch-action: none;
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    background:
+      linear-gradient(transparent calc(100% - 25px), var(--border) 0) 0 0 / 100% 100% no-repeat,
+      var(--surface-raised);
+    cursor: crosshair;
+  }
+
+  .signature-input-label {
+    display: grid;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .signature-input-label input {
+    min-height: 46px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface-raised);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .signature-upload {
+    display: grid;
+    min-height: 160px;
+    justify-items: center;
+    align-content: center;
+    gap: 9px;
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    color: var(--accent);
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .signature-upload strong {
+    max-width: 100%;
+    overflow: hidden;
+    padding-inline: 12px;
+    color: var(--text);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .signature-upload small {
+    color: var(--muted);
+    font-size: 10px;
+  }
+
+  .sign-controls__actions {
+    display: grid;
+    gap: 7px;
+  }
+
+  .sign-controls__actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sign-preview {
+    display: flex;
+    min-height: 550px;
+    justify-content: center;
+    overflow: hidden;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    background: var(--surface-raised);
+  }
+
+  .contract {
+    display: flex;
+    width: min(100%, 520px);
+    min-height: 490px;
+    flex-direction: column;
+    padding: clamp(24px, 5vw, 52px);
+    background: #fffefa;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 12%);
+    color: #28241f;
+  }
+
+  .contract__eyebrow {
+    margin: 0 0 34px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .contract h2 {
+    margin: 0 0 18px;
+    font-size: clamp(24px, 3vw, 34px);
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+
+  .contract > p:not(.contract__eyebrow) {
+    color: #68635a;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .contract__signature-area {
+    position: relative;
+    display: grid;
+    min-height: 100px;
+    align-content: end;
+    gap: 8px;
+    margin-top: auto;
+    padding-bottom: 8px;
+    color: #68635a;
+    font-size: 10px;
+  }
+
+  .contract__signature-area img {
+    max-width: 180px;
+    max-height: 70px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .contract__typed-signature {
+    color: #27231e;
+    font-family: cursive;
+    font-size: 26px;
+    font-style: italic;
+  }
+
+  .contract__signature-placeholder {
+    color: #8d887e;
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  .contract__signature-line {
+    width: 100%;
+    height: 1px;
+    background: #d3cec4;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1496,6 +1699,19 @@
   .document-preview {
     min-height: 300px;
     padding: 28px;
+  }
+
+  .sign-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sign-preview {
+    min-height: 430px;
+    padding: 14px;
+  }
+
+  .contract {
+    min-height: 390px;
   }
 
   .accordion-panel--active .paper-art__page--one {

@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage'
 import { MergePage } from './pages/MergePage'
 import { ProgressPage } from './pages/ProgressPage'
 import { ResultPage } from './pages/ResultPage'
+import { SignPage } from './pages/SignPage'
 import { ToolPlaceholder } from './pages/ToolPlaceholder'
 import type { Screen, ToolId } from './types'
 
@@ -44,6 +45,8 @@ export default function App() {
           />
         ) : screen === 'compress' ? (
           <CompressPage onBack={() => setScreen('home')} />
+        ) : screen === 'sign' ? (
+          <SignPage onBack={() => setScreen('home')} />
         ) : screen === 'progress' ? (
           <ProgressPage
             fileCount={mergeFiles.length}
