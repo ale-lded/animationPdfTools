@@ -198,6 +198,360 @@
     color: var(--muted);
     font-size: 13px;
   }
+
+  .home-page {
+    display: contents;
+  }
+
+  .hero {
+    display: grid;
+    min-height: 610px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+  }
+
+  .hero__copy {
+    max-width: 470px;
+  }
+
+  .privacy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .privacy-badge svg {
+    color: var(--accent);
+  }
+
+  .hero h1 {
+    margin: 28px 0 18px;
+    font-size: clamp(48px, 6vw, 76px);
+    font-weight: 600;
+    letter-spacing: -0.055em;
+    line-height: 0.99;
+  }
+
+  .hero__description {
+    max-width: 410px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+  }
+
+  .button--primary {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  .button--primary:hover {
+    filter: brightness(1.08);
+  }
+
+  .button--secondary {
+    border-color: var(--border);
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .button--ghost {
+    background: transparent;
+    color: var(--text);
+  }
+
+  .button--ghost:hover {
+    background: var(--surface-raised);
+  }
+
+  .button--large {
+    min-height: 52px;
+    font-size: 15px;
+  }
+
+  .hero__visual {
+    width: 100%;
+    max-width: 704px;
+    margin-inline: auto;
+  }
+
+  .tool-accordion {
+    display: flex;
+    height: 440px;
+    gap: 10px;
+  }
+
+  .accordion-panel {
+    position: relative;
+    min-width: 48px;
+    flex: 0 0 48px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    background: var(--surface-raised);
+    transition:
+      flex-basis 650ms cubic-bezier(0.2, 0.75, 0.3, 1),
+      border-color 240ms ease;
+  }
+
+  .accordion-panel--active {
+    flex-basis: min(360px, 55%);
+    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+
+  .accordion-panel__toggle {
+    position: absolute;
+    z-index: 3;
+    top: 20px;
+    left: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+  }
+
+  .accordion-panel:not(.accordion-panel--active) .accordion-panel__toggle {
+    top: 18px;
+    left: 5px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .accordion-panel__collapsed-title {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .icon-disc {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent);
+  }
+
+  .accordion-panel__content {
+    position: absolute;
+    z-index: 2;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .accordion-panel__copy h2 {
+    margin: 0;
+    font-size: 36px;
+    letter-spacing: -0.045em;
+    line-height: 1.1;
+  }
+
+  .accordion-panel__copy p {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .feature-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 18px 0 12px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .feature-pills li {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .accordion-panel__action {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .paper-art {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .paper-art__page {
+    position: absolute;
+    top: 100px;
+    display: block;
+    width: 92px;
+    height: 122px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background:
+      linear-gradient(var(--border), var(--border)) 16px 27px / 56px 3px no-repeat,
+      linear-gradient(var(--border), var(--border)) 16px 41px / 46px 3px no-repeat,
+      linear-gradient(var(--border), var(--border)) 16px 55px / 35px 3px no-repeat,
+      var(--surface);
+    box-shadow: 12px 18px 28px rgb(0 0 0 / 15%);
+    transition:
+      left 600ms ease,
+      right 600ms ease,
+      transform 600ms ease;
+  }
+
+  .paper-art__page--one {
+    left: -38px;
+    transform: rotate(-8deg);
+  }
+
+  .paper-art__page--two {
+    left: calc(50% - 46px);
+  }
+
+  .paper-art__page--three {
+    right: -38px;
+    transform: rotate(8deg);
+  }
+
+  .accordion-panel--active .paper-art__page--one {
+    left: 44px;
+    transform: rotate(-8deg);
+  }
+
+  .accordion-panel--active .paper-art__page--two {
+    top: 83px;
+  }
+
+  .accordion-panel--active .paper-art__page--three {
+    right: 44px;
+    transform: rotate(8deg);
+  }
+
+  .paper-art--split .paper-art__page--two {
+    opacity: 0;
+  }
+
+  .accordion-panel--active .paper-art--split .paper-art__page--two {
+    left: auto;
+    right: 42px;
+    opacity: 1;
+    transform: rotate(5deg);
+  }
+
+  .paper-art__glow {
+    position: absolute;
+    right: 0;
+    bottom: -100px;
+    left: 0;
+    height: 220px;
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--accent) 40%, transparent),
+      transparent 68%
+    );
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  .accordion-panel--active .paper-art__glow {
+    opacity: 1;
+  }
+
+  .hero__hint {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .tool-placeholder {
+    max-width: 760px;
+    margin: 16px auto;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+  }
+
+  .tool-placeholder__card {
+    display: grid;
+    justify-items: start;
+    gap: 14px;
+    margin-top: 36px;
+    padding: clamp(24px, 6vw, 56px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    background: var(--surface);
+  }
+
+  .tool-placeholder__card h1,
+  .tool-placeholder__card p {
+    margin: 0;
+  }
+
+  .tool-placeholder__card h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    letter-spacing: -0.045em;
+  }
+
+  .tool-placeholder__card > p:not(.eyebrow) {
+    max-width: 480px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
 }
 
 @media (max-width: 600px) {
@@ -208,6 +562,79 @@
 
   .page-container {
     padding-block: 24px;
+  }
+
+  .hero {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-block: 32px;
+  }
+
+  .hero h1 {
+    margin-top: 22px;
+  }
+
+  .tool-accordion {
+    height: 390px;
+    gap: 6px;
+  }
+
+  .accordion-panel {
+    min-width: 36px;
+    flex-basis: 36px;
+    border-radius: 18px;
+  }
+
+  .accordion-panel--active {
+    flex-basis: 58%;
+  }
+
+  .accordion-panel:not(.accordion-panel--active) .accordion-panel__toggle {
+    left: 0;
+  }
+
+  .accordion-panel:not(.accordion-panel--active) .icon-disc {
+    width: 32px;
+    height: 32px;
+  }
+
+  .accordion-panel__content {
+    right: 12px;
+    bottom: 14px;
+    left: 12px;
+  }
+
+  .accordion-panel__copy h2 {
+    font-size: 28px;
+  }
+
+  .accordion-panel__copy p {
+    font-size: 11px;
+    white-space: normal;
+  }
+
+  .feature-pills {
+    gap: 4px;
+    margin-block: 12px 8px;
+  }
+
+  .feature-pills li {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+
+  .paper-art__page {
+    width: 72px;
+    height: 100px;
+  }
+
+  .accordion-panel--active .paper-art__page--one {
+    left: 14px;
+  }
+
+  .accordion-panel--active .paper-art__page--three {
+    right: 14px;
   }
 }
 

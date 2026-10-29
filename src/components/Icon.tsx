@@ -1,16 +1,68 @@
 import type { ReactNode } from 'react'
 
-export type IconName = 'arrow' | 'file' | 'moon' | 'sun'
+export type IconName =
+  | 'arrow'
+  | 'compress'
+  | 'file'
+  | 'lock'
+  | 'merge'
+  | 'moon'
+  | 'protect'
+  | 'reorder'
+  | 'sign'
+  | 'split'
+  | 'sun'
 
 const iconPaths: Record<IconName, ReactNode> = {
   arrow: <path d="M5 12h14m-6-6 6 6-6 6" />,
+  compress: (
+    <>
+      <path d="m8 4-4 4h4M16 4l4 4h-4M8 20l-4-4h4M16 20l4-4h-4" />
+      <path d="M4 8l4-4m12 4-4-4M4 16l4 4m12-4-4 4" />
+    </>
+  ),
   file: (
     <>
       <path d="M7 3h7l4 4v14H7z" />
       <path d="M14 3v5h4M10 13h5M10 17h4" />
     </>
   ),
+  lock: (
+    <>
+      <rect height="10" rx="2" width="12" x="6" y="10" />
+      <path d="M8.5 10V7a3.5 3.5 0 0 1 7 0v3" />
+    </>
+  ),
+  merge: (
+    <>
+      <path d="M7 4v4a4 4 0 0 0 4 4h7" />
+      <path d="m15 9 3 3-3 3M7 20v-4a4 4 0 0 1 4-4" />
+    </>
+  ),
   moon: <path d="M20 15.3A8.5 8.5 0 0 1 8.7 4 8.5 8.5 0 1 0 20 15.3Z" />,
+  protect: (
+    <>
+      <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  reorder: (
+    <>
+      <path d="M7 7h11M7 12h11M7 17h11M4 7h.01M4 12h.01M4 17h.01" />
+    </>
+  ),
+  sign: (
+    <>
+      <path d="M4 18c3-1 4-4 5-7 1-2 2-4 3-4 2 0-.5 8 1 8 1 0 2-3 3-3 1 0 .3 3 2 3 .8 0 1.5-.6 2-1" />
+      <path d="M4 21h16" />
+    </>
+  ),
+  split: (
+    <>
+      <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3" />
+      <path d="M12 4v3m0 3v4m0 3v3" />
+    </>
+  ),
   sun: (
     <>
       <circle cx="12" cy="12" r="3" />
