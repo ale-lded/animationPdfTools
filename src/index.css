@@ -1023,6 +1023,125 @@
     width: 100%;
     margin-top: 6px;
   }
+
+  .center-state {
+    display: grid;
+    min-height: calc(100vh - 230px);
+    place-items: center;
+    padding-block: 36px;
+  }
+
+  .process-card,
+  .result-card {
+    width: min(100%, 560px);
+    padding: clamp(24px, 5vw, 42px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    background: var(--surface);
+  }
+
+  .process-icon,
+  .result-icon {
+    display: grid;
+    width: 54px;
+    height: 54px;
+    place-items: center;
+    margin-bottom: 24px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent);
+  }
+
+  .process-card h1,
+  .result-card h1 {
+    margin: 8px 0 0;
+    font-size: clamp(32px, 5vw, 44px);
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
+
+  .process-card__description,
+  .result-card__description {
+    margin: 12px 0 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    font-size: 12px;
+  }
+
+  .progress-label span {
+    color: var(--muted);
+  }
+
+  .progress-track {
+    overflow: hidden;
+    height: 8px;
+    margin-top: 10px;
+    border-radius: 999px;
+    background: var(--surface-raised);
+  }
+
+  .progress-track span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+    transition: width 180ms ease;
+  }
+
+  .process-card__note {
+    margin: 12px 0 24px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .result-file-list {
+    display: grid;
+    max-height: 250px;
+    gap: 8px;
+    overflow-y: auto;
+    margin-top: 24px;
+  }
+
+  .result-file {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+  }
+
+  .result-file > span:last-child {
+    display: grid;
+    min-width: 0;
+    gap: 4px;
+  }
+
+  .result-file strong {
+    overflow: hidden;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .result-file small {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
 }
 
 @media (max-width: 600px) {

@@ -6,6 +6,8 @@ const maxFileSize = 100 * 1024 * 1024
 type SortMode = 'manual' | 'name' | 'date'
 
 type MergePageProps = {
+  files: File[]
+  onFilesChange: (files: File[]) => void
   onStart: (files: File[]) => void
   onBack: () => void
 }
@@ -18,9 +20,13 @@ function formatFileSize(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-export function MergePage({ onStart, onBack }: MergePageProps) {
+export function MergePage({
+  files,
+  onFilesChange,
+  onStart,
+  onBack,
+}: MergePageProps) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [files, setFiles] = useState<File[]>([])
   const [sortMode, setSortMode] = useState<SortMode>('manual')
   const [keepBookmarks, setKeepBookmarks] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -59,28 +65,26 @@ export function MergePage({ onStart, onBack }: MergePageProps) {
     }
 
     if (validFiles.length > 0) {
-      setFiles((currentFiles) => [...currentFiles, ...validFiles])
+      onFilesChange([...files, ...validFiles])
       setSortMode('manual')
     }
   }
 
   function moveFile(index: number, offset: -1 | 1) {
-    setFiles((currentFiles) => {
-      const targetIndex = index + offset
+    const targetIndex = index + offset
 
-      if (targetIndex < 0 || targetIndex >= currentFiles.length) {
-        return currentFiles
-      }
+    if (targetIndex < 0 || targetIndex >= files.length) {
+      return
+    }
 
-      const nextFiles = [...currentFiles]
-      const [movedFile] = nextFiles.splice(index, 1)
+    const nextFiles = [...files]
+    const [movedFile] = nextFiles.splice(index, 1)
 
-      if (movedFile) {
-        nextFiles.splice(targetIndex, 0, movedFile)
-      }
+    if (movedFile) {
+      nextFiles.splice(targetIndex, 0, movedFile)
+    }
 
-      return nextFiles
-    })
+    onFilesChange(nextFiles)
     setSortMode('manual')
   }
 
@@ -230,8 +234,8 @@ export function MergePage({ onStart, onBack }: MergePageProps) {
                       aria-label={`Remove ${file.name}`}
                       className="icon-button icon-button--remove"
                       onClick={() => {
-                        setFiles((currentFiles) =>
-                          currentFiles.filter((candidate) => candidate !== file),
+                        onFilesChange(
+                          files.filter((candidate) => candidate !== file),
                         )
                       }}
                       type="button"
@@ -287,7 +291,7 @@ export function MergePage({ onStart, onBack }: MergePageProps) {
             className="button button--ghost clear-button"
             disabled={files.length === 0}
             onClick={() => {
-              setFiles([])
+              onFilesChange([])
               setError(null)
             }}
             type="button"

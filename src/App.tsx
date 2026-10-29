@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { SiteHeader } from './components/SiteHeader'
 import { HomePage } from './pages/HomePage'
 import { MergePage } from './pages/MergePage'
+import { ProgressPage } from './pages/ProgressPage'
+import { ResultPage } from './pages/ResultPage'
 import { ToolPlaceholder } from './pages/ToolPlaceholder'
 import type { Screen, ToolId } from './types'
 
@@ -10,8 +12,13 @@ type Theme = 'dark' | 'light'
 export default function App() {
   const [theme, setTheme] = useState<Theme>('dark')
   const [screen, setScreen] = useState<Screen>('home')
+  const [mergeFiles, setMergeFiles] = useState<File[]>([])
 
   const selectTool = (tool: ToolId) => setScreen(tool)
+  const completeMergePreview = useCallback(
+    () => setScreen('result'),
+    [setScreen],
+  )
 
   return (
     <div className="app" data-theme={theme}>
@@ -29,13 +36,22 @@ export default function App() {
           <HomePage onSelectTool={selectTool} />
         ) : screen === 'merge' ? (
           <MergePage
+            files={mergeFiles}
+            onFilesChange={setMergeFiles}
             onBack={() => setScreen('home')}
             onStart={() => setScreen('progress')}
           />
-        ) : screen === 'progress' || screen === 'result' ? (
-          <ToolPlaceholder
-            onBack={() => setScreen('merge')}
-            tool="merge"
+        ) : screen === 'progress' ? (
+          <ProgressPage
+            fileCount={mergeFiles.length}
+            onCancel={() => setScreen('merge')}
+            onComplete={completeMergePreview}
+          />
+        ) : screen === 'result' ? (
+          <ResultPage
+            files={mergeFiles}
+            onHome={() => setScreen('home')}
+            onRetry={() => setScreen('merge')}
           />
         ) : (
           <ToolPlaceholder

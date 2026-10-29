@@ -4,6 +4,7 @@ export type IconName =
   | 'arrow'
   | 'compress'
   | 'close'
+  | 'check'
   | 'extract'
   | 'file'
   | 'image'
@@ -29,6 +30,7 @@ const iconPaths: Record<IconName, ReactNode> = {
     </>
   ),
   close: <path d="m6 6 12 12m0-12L6 18" />,
+  check: <path d="m5 12 4 4L19 6" />,
   extract: (
     <>
       <rect height="16" rx="2" width="12" x="4" y="4" />
