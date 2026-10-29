@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { SiteHeader } from './components/SiteHeader'
 import { HomePage } from './pages/HomePage'
+import { MergePage } from './pages/MergePage'
 import { ToolPlaceholder } from './pages/ToolPlaceholder'
 import type { Screen, ToolId } from './types'
 
@@ -26,6 +27,16 @@ export default function App() {
       <main className="page-container" id="main-content">
         {screen === 'home' ? (
           <HomePage onSelectTool={selectTool} />
+        ) : screen === 'merge' ? (
+          <MergePage
+            onBack={() => setScreen('home')}
+            onStart={() => setScreen('progress')}
+          />
+        ) : screen === 'progress' || screen === 'result' ? (
+          <ToolPlaceholder
+            onBack={() => setScreen('merge')}
+            tool="merge"
+          />
         ) : (
           <ToolPlaceholder
             onBack={() => setScreen('home')}

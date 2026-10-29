@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 export type IconName =
   | 'arrow'
   | 'compress'
+  | 'close'
   | 'extract'
   | 'file'
   | 'image'
@@ -16,6 +17,7 @@ export type IconName =
   | 'split'
   | 'sun'
   | 'trash'
+  | 'upload'
   | 'watermark'
 
 const iconPaths: Record<IconName, ReactNode> = {
@@ -26,6 +28,7 @@ const iconPaths: Record<IconName, ReactNode> = {
       <path d="M4 8l4-4m12 4-4-4M4 16l4 4m12-4-4 4" />
     </>
   ),
+  close: <path d="m6 6 12 12m0-12L6 18" />,
   extract: (
     <>
       <rect height="16" rx="2" width="12" x="4" y="4" />
@@ -95,6 +98,12 @@ const iconPaths: Record<IconName, ReactNode> = {
   trash: (
     <>
       <path d="M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14" />
+    </>
+  ),
+  upload: (
+    <>
+      <path d="m16 11-4-4-4 4m4-4v10" />
+      <path d="M5 19h14" />
     </>
   ),
   watermark: (

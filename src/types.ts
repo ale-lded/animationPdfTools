@@ -13,4 +13,4 @@ export type ToolId =
   | 'page-numbers'
   | 'metadata'
 
-export type Screen = 'home' | ToolId
+export type Screen = 'home' | 'progress' | 'result' | ToolId
