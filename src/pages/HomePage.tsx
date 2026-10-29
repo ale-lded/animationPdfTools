@@ -1,4 +1,5 @@
 import { Icon } from '../components/Icon'
+import { MoreToolsGrid } from '../components/MoreToolsGrid'
 import { ToolAccordion } from '../components/ToolAccordion'
 import type { ToolId } from '../types'
 
@@ -38,6 +39,7 @@ export function HomePage({ onSelectTool }: HomePageProps) {
           <p className="hero__hint">Explore the tools</p>
         </div>
       </section>
+      <MoreToolsGrid onSelectTool={onSelectTool} />
     </div>
   )
 }

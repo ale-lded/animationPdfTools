@@ -511,6 +511,104 @@
     text-align: center;
   }
 
+  .more-tools {
+    margin: 12px 0 72px;
+    scroll-margin-top: 88px;
+  }
+
+  .more-tools__heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .more-tools__heading h2 {
+    margin: 8px 0 0;
+    font-size: clamp(30px, 4vw, 40px);
+    letter-spacing: -0.04em;
+  }
+
+  .more-tools__count {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .more-card {
+    position: relative;
+    display: flex;
+    min-height: 180px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    background: var(--surface);
+    color: var(--text);
+    text-align: left;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .more-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: var(--surface-raised);
+  }
+
+  .tool-tile {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    margin-bottom: 8px;
+    border-radius: 13px;
+    background: color-mix(in srgb, var(--accent) 13%, transparent);
+    color: var(--accent);
+  }
+
+  .more-card strong {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .more-card small {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .more-card__arrow {
+    position: absolute;
+    top: 24px;
+    right: 20px;
+    color: var(--muted);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .more-card:hover .more-card__arrow,
+  .more-card:focus-visible .more-card__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
   .tool-placeholder {
     max-width: 760px;
     margin: 16px auto;
@@ -627,6 +725,21 @@
   .paper-art__page {
     width: 72px;
     height: 100px;
+  }
+
+  .more-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .more-card {
+    min-height: 160px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .more-card__arrow {
+    display: none;
   }
 
   .accordion-panel--active .paper-art__page--one {

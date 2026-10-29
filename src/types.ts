@@ -5,5 +5,12 @@ export type ToolId =
   | 'reorder'
   | 'sign'
   | 'protect'
+  | 'extract'
+  | 'delete'
+  | 'pdf-to-images'
+  | 'images-to-pdf'
+  | 'watermark'
+  | 'page-numbers'
+  | 'metadata'
 
 export type Screen = 'home' | ToolId

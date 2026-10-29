@@ -1,4 +1,5 @@
 import { Icon } from '../components/Icon'
+import { moreTools } from '../data/moreTools'
 import { featuredTools } from '../data/tools'
 import type { ToolId } from '../types'
 
@@ -8,7 +9,9 @@ type ToolPlaceholderProps = {
 }
 
 export function ToolPlaceholder({ tool, onBack }: ToolPlaceholderProps) {
-  const metadata = featuredTools.find((item) => item.id === tool)
+  const metadata =
+    featuredTools.find((item) => item.id === tool) ??
+    moreTools.find((item) => item.id === tool)
 
   if (!metadata) {
     throw new Error(`Unknown PDF tool: ${tool}`)
