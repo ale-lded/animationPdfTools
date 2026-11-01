@@ -1,0 +1,622 @@
+@layer components {
+  .paper-art {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .paper-art__page {
+    position: absolute;
+    top: 100px;
+    display: block;
+    width: 92px;
+    height: 122px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background:
+      linear-gradient(var(--border), var(--border)) 16px 27px / 56px 3px no-repeat,
+      linear-gradient(var(--border), var(--border)) 16px 41px / 46px 3px no-repeat,
+      linear-gradient(var(--border), var(--border)) 16px 55px / 35px 3px no-repeat,
+      var(--surface);
+    box-shadow: 12px 18px 28px rgb(0 0 0 / 15%);
+    transition:
+      left 600ms ease,
+      right 600ms ease,
+      transform 600ms ease;
+  }
+
+  .paper-art__page--one {
+    left: -38px;
+    transform: rotate(-8deg);
+  }
+
+  .paper-art__page--two {
+    left: calc(50% - 46px);
+  }
+
+  .paper-art__page--three {
+    right: -38px;
+    transform: rotate(8deg);
+  }
+
+  .accordion-panel--active .paper-art__page--one {
+    left: 44px;
+    transform: rotate(-8deg);
+  }
+
+  .accordion-panel--active .paper-art__page--two {
+    top: 83px;
+  }
+
+  .accordion-panel--active .paper-art__page--three {
+    right: 44px;
+    transform: rotate(8deg);
+  }
+
+  .paper-art--split .paper-art__page--two {
+    opacity: 0;
+  }
+
+  .accordion-panel--active .paper-art--split .paper-art__page--two {
+    left: auto;
+    right: 42px;
+    opacity: 1;
+    transform: rotate(5deg);
+  }
+
+  .paper-art__glow {
+    position: absolute;
+    right: 0;
+    bottom: -100px;
+    left: 0;
+    height: 220px;
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--accent) 40%, transparent),
+      transparent 68%
+    );
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  .accordion-panel--active .paper-art__glow {
+    opacity: 1;
+  }
+
+  .paper-art--compress .paper-art__page {
+    transition:
+      width 1.3s ease,
+      height 1.3s ease,
+      left 1.3s ease,
+      right 1.3s ease,
+      top 1.3s ease,
+      transform 1.3s ease,
+      background-size 1.3s ease,
+      background-position 1.3s ease;
+  }
+
+  .accordion-panel--active .paper-art--compress .paper-art__page {
+    top: 90px;
+    width: 65px;
+    height: 85px;
+    background-position:
+      10px 18px,
+      10px 26px,
+      10px 34px;
+    background-size:
+      35px 2px,
+      28px 2px,
+      20px 2px;
+  }
+
+  .accordion-panel--active .paper-art--compress .paper-art__page--one {
+    left: calc(50% - 85.5px);
+    transform: rotate(-4deg);
+  }
+
+  .accordion-panel--active .paper-art--compress .paper-art__page--two {
+    left: calc(50% - 32.5px);
+  }
+
+  .accordion-panel--active .paper-art--compress .paper-art__page--three {
+    right: calc(50% - 85.5px);
+    transform: rotate(4deg);
+  }
+
+  .paper-art--merge .paper-art__page {
+    transition:
+      left 1.3s ease,
+      top 1.3s ease,
+      transform 1.3s ease;
+  }
+
+  .paper-art--merge .paper-art__page--one {
+    left: calc(50% - 46px);
+    top: 100px;
+    transform: none;
+    transition-delay: 600ms;
+  }
+
+  .paper-art--merge .paper-art__page--two {
+    left: calc(100% + 24px);
+    top: -80px;
+    transform: none;
+    transition-delay: 300ms;
+  }
+
+  .paper-art--merge .paper-art__page--three {
+    left: calc(100% + 24px);
+    right: auto;
+    top: calc(100% + 24px);
+    transform: none;
+    transition-delay: 0ms;
+  }
+
+  .accordion-panel--active .paper-art--merge .paper-art__page--one {
+    left: calc(50% - 146px);
+    top: 100px;
+    transform: none;
+    transition-delay: 650ms;
+  }
+
+  .accordion-panel--active .paper-art--merge .paper-art__page--two {
+    left: calc(50% - 46px);
+    top: 100px;
+    transform: none;
+    transition-delay: 950ms;
+  }
+
+  .accordion-panel--active .paper-art--merge .paper-art__page--three {
+    left: calc(50% + 54px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 1250ms;
+  }
+
+  .paper-art--split .paper-art__page {
+    transition:
+      left 1.3s ease,
+      top 1.3s ease,
+      transform 1.3s ease;
+  }
+
+  .paper-art--split .paper-art__page--one {
+    left: calc(50% - 48px);
+    right: auto;
+    top: 102px;
+    transform: rotate(-3deg);
+    transition-delay: 300ms;
+  }
+
+  .paper-art--split .paper-art__page--two {
+    left: calc(50% - 44px);
+    right: auto;
+    top: 98px;
+    transform: rotate(2deg);
+    opacity: 1;
+    transition-delay: 300ms;
+  }
+
+  .paper-art--split .paper-art__page--three {
+    left: calc(50% - 46px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 0ms;
+  }
+
+  .accordion-panel--active .paper-art--split .paper-art__page--one {
+    left: calc(50% - 110px);
+    right: auto;
+    top: 100px;
+    transform: rotate(-3deg);
+    transition-delay: 650ms;
+  }
+
+  .accordion-panel--active .paper-art--split .paper-art__page--two {
+    left: calc(50% - 102px);
+    right: auto;
+    top: 104px;
+    transform: rotate(2deg);
+    opacity: 1;
+    transition-delay: 650ms;
+  }
+
+  .accordion-panel--active .paper-art--split .paper-art__page--three {
+    left: calc(50% + 28px);
+    right: auto;
+    top: 94px;
+    transform: rotate(5deg);
+    transition-delay: 950ms;
+  }
+
+  .paper-art--reorder .paper-art__page {
+    transition:
+      left 1.3s ease,
+      top 1.3s ease,
+      transform 1.3s ease;
+  }
+
+  .paper-art--reorder .paper-art__page--one {
+    left: calc(50% - 146px);
+    right: auto;
+    top: 100px;
+    transform: rotate(-4deg);
+    transition-delay: 0ms;
+  }
+
+  .paper-art--reorder .paper-art__page--two {
+    left: calc(50% - 46px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 0ms;
+  }
+
+  .paper-art--reorder .paper-art__page--three {
+    left: calc(50% + 54px);
+    right: auto;
+    top: 100px;
+    transform: rotate(4deg);
+    transition-delay: 300ms;
+  }
+
+  .accordion-panel--active .paper-art--reorder .paper-art__page--one {
+    left: calc(50% - 146px);
+    transform: rotate(-4deg);
+    transition-delay: 0ms;
+  }
+
+  .accordion-panel--active .paper-art--reorder .paper-art__page--two {
+    left: calc(50% + 54px);
+    transform: rotate(4deg);
+    transition-delay: 950ms;
+  }
+
+  .accordion-panel--active .paper-art--reorder .paper-art__page--three {
+    left: calc(50% - 46px);
+    top: 92px;
+    transform: rotate(-4deg);
+    transition-delay: 650ms;
+  }
+
+  .paper-art--sign .paper-art__page {
+    transition:
+      left 1.3s ease,
+      top 1.3s ease,
+      transform 1.3s ease;
+  }
+
+  .paper-art--sign .paper-art__page--one {
+    left: calc(50% - 146px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 300ms;
+  }
+
+  .paper-art--sign .paper-art__page--two {
+    left: calc(50% - 46px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 300ms;
+  }
+
+  .paper-art--sign .paper-art__page--three {
+    left: calc(50% + 54px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 0ms;
+    z-index: 1;
+  }
+
+  .accordion-panel--active .paper-art--sign .paper-art__page--one {
+    left: calc(50% - 110px);
+    top: 100px;
+    transform: scale(0.88) rotate(-3deg);
+    transition-delay: 650ms;
+  }
+
+  .accordion-panel--active .paper-art--sign .paper-art__page--two {
+    left: calc(50% - 102px);
+    top: 104px;
+    transform: scale(0.9) rotate(2deg);
+    transition-delay: 650ms;
+  }
+
+  .accordion-panel--active .paper-art--sign .paper-art__page--three {
+    left: calc(50% - 46px);
+    top: 88px;
+    transform: scale(1.2) rotate(-1deg);
+    transition-delay: 650ms;
+  }
+
+  .paper-art__signature {
+    position: absolute;
+    right: 8%;
+    bottom: 12%;
+    width: 84%;
+    height: 40%;
+    overflow: visible;
+    color: var(--accent);
+  }
+
+  .paper-art__signature-path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.2s ease;
+    transition-delay: 0ms;
+  }
+
+  .accordion-panel--active .paper-art--sign .paper-art__signature-path {
+    stroke-dashoffset: 0;
+    transition-delay: 1.95s;
+  }
+
+  .paper-art--protect .paper-art__page {
+    transition:
+      left 1.3s ease,
+      top 1.3s ease,
+      transform 1.3s ease;
+  }
+
+  .paper-art--protect .paper-art__page--one {
+    left: calc(50% - 146px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 300ms;
+  }
+
+  .paper-art--protect .paper-art__page--two {
+    left: calc(50% - 46px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 300ms;
+  }
+
+  .paper-art--protect .paper-art__page--three {
+    left: calc(50% + 54px);
+    right: auto;
+    top: 100px;
+    transform: none;
+    transition-delay: 0ms;
+    z-index: 1;
+  }
+
+  .accordion-panel--active .paper-art--protect .paper-art__page--one {
+    left: calc(50% - 110px);
+    top: 100px;
+    transform: scale(0.9) rotate(-3deg);
+    transition-delay: 650ms;
+  }
+
+  .accordion-panel--active .paper-art--protect .paper-art__page--two {
+    left: calc(50% - 102px);
+    top: 104px;
+    transform: scale(0.9) rotate(2deg);
+    transition-delay: 650ms;
+  }
+
+  .accordion-panel--active .paper-art--protect .paper-art__page--three {
+    left: calc(50% - 46px);
+    top: 100px;
+    transform: scale(1.04);
+    transition-delay: 650ms;
+  }
+
+  .paper-art__protection {
+    position: absolute;
+    right: 6%;
+    bottom: 5%;
+    width: 58%;
+    height: auto;
+    overflow: visible;
+    color: var(--accent);
+  }
+
+  .paper-art__protection-shield {
+    fill: var(--surface);
+    fill-opacity: 0.85;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.9s ease;
+    transition-delay: 0ms;
+  }
+
+  .accordion-panel--active .paper-art--protect .paper-art__protection-shield {
+    stroke-dashoffset: 0;
+    transition-delay: 1.95s;
+  }
+
+  .paper-art__protection-lock {
+    opacity: 0;
+    transform: scale(0.72);
+    transform-origin: center;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+    transition-delay: 0ms;
+  }
+
+  .paper-art__protection-shackle {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+
+  .paper-art__protection-lock-body {
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 1;
+  }
+
+  .paper-art__protection-lock circle {
+    fill: var(--surface);
+  }
+
+  .paper-art__protection-keyhole {
+    stroke: var(--surface);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+
+  .accordion-panel--active .paper-art--protect .paper-art__protection-lock {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 2.85s;
+  }
+
+  @media (max-width: 600px) {
+    .paper-art__page {
+      width: 72px;
+      height: 100px;
+    }
+
+    .accordion-panel--active .paper-art--merge .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .accordion-panel--active .paper-art--merge .paper-art__page--two {
+      left: calc(50% - 36px);
+    }
+
+    .accordion-panel--active .paper-art--merge .paper-art__page--three {
+      left: calc(50% + 44px);
+    }
+
+    .paper-art--split .paper-art__page--one {
+      left: calc(50% - 36px);
+    }
+
+    .paper-art--split .paper-art__page--two {
+      left: calc(50% - 32px);
+    }
+
+    .paper-art--split .paper-art__page--three {
+      left: calc(50% - 36px);
+    }
+
+    .accordion-panel--active .paper-art--split .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .accordion-panel--active .paper-art--split .paper-art__page--two {
+      left: calc(50% - 108px);
+    }
+
+    .accordion-panel--active .paper-art--split .paper-art__page--three {
+      left: calc(50% + 6px);
+    }
+
+    .paper-art--reorder .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .paper-art--reorder .paper-art__page--two {
+      left: calc(50% - 36px);
+    }
+
+    .paper-art--reorder .paper-art__page--three {
+      left: calc(50% + 44px);
+    }
+
+    .accordion-panel--active .paper-art--reorder .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .accordion-panel--active .paper-art--reorder .paper-art__page--two {
+      left: calc(50% + 44px);
+    }
+
+    .accordion-panel--active .paper-art--reorder .paper-art__page--three {
+      left: calc(50% - 36px);
+    }
+
+    .paper-art--sign .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .paper-art--sign .paper-art__page--two {
+      left: calc(50% - 36px);
+    }
+
+    .paper-art--sign .paper-art__page--three {
+      left: calc(50% + 44px);
+    }
+
+    .accordion-panel--active .paper-art--sign .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .accordion-panel--active .paper-art--sign .paper-art__page--two {
+      left: calc(50% - 108px);
+    }
+
+    .accordion-panel--active .paper-art--sign .paper-art__page--three {
+      left: calc(50% - 36px);
+    }
+
+    .paper-art--protect .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .paper-art--protect .paper-art__page--two {
+      left: calc(50% - 36px);
+    }
+
+    .paper-art--protect .paper-art__page--three {
+      left: calc(50% + 44px);
+    }
+
+    .accordion-panel--active .paper-art--protect .paper-art__page--one {
+      left: calc(50% - 116px);
+    }
+
+    .accordion-panel--active .paper-art--protect .paper-art__page--two {
+      left: calc(50% - 108px);
+    }
+
+    .accordion-panel--active .paper-art--protect .paper-art__page--three {
+      left: calc(50% - 36px);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .accordion-panel--active .paper-art__page--one {
+      left: 14px;
+    }
+
+    .accordion-panel--active .paper-art__page--three {
+      right: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .paper-art--merge .paper-art__page,
+    .paper-art--split .paper-art__page,
+    .paper-art--reorder .paper-art__page,
+    .paper-art--sign .paper-art__page,
+    .paper-art__signature-path,
+    .paper-art--protect .paper-art__page,
+    .paper-art__protection-shield,
+    .paper-art__protection-lock {
+      transition-delay: 0ms !important;
+    }
+  }
+}
