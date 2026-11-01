@@ -484,9 +484,18 @@
   }
 
   @media (max-width: 600px) {
+    .paper-art {
+      transform: translate(64px, -56px) scale(0.72);
+      transform-origin: top left;
+    }
+
     .paper-art__page {
       width: 72px;
       height: 100px;
+    }
+
+    .paper-art--merge .paper-art__page--three {
+      top: 100px;
     }
 
     .accordion-panel--active .paper-art--merge .paper-art__page--one {

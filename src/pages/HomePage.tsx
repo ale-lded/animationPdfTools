@@ -13,7 +13,7 @@ export function HomePage({ onSelectTool }: HomePageProps) {
       <section aria-labelledby="hero-title" className="hero">
         <div className="hero__copy">
           <p className="privacy-badge">
-            <Icon name="lock" size={14} />
+            <Icon name="lock" size={16} />
             Your files never leave your device
           </p>
           <h1 id="hero-title">Everything your PDFs need.</h1>
@@ -22,7 +22,7 @@ export function HomePage({ onSelectTool }: HomePageProps) {
           </p>
           <div className="hero__actions">
             <button
-              className="button button--primary button--large"
+              className="button button--primary button--large" //left start button
               onClick={() => onSelectTool('merge')}
               type="button"
             >

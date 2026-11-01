@@ -41,7 +41,7 @@
 
 @layer components {
   .app {
-    --bg: #0a0a0a;
+    --bg: #262424;
     --surface: #121212;
     --surface-raised: #191919;
     --border: rgb(255 255 255 / 9%);
