@@ -100,6 +100,7 @@
     top: 90px;
     width: 65px;
     height: 85px;
+    transition-delay: 650ms;
     background-position:
       10px 18px,
       10px 26px,
@@ -608,6 +609,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .paper-art--compress .paper-art__page,
     .paper-art--merge .paper-art__page,
     .paper-art--split .paper-art__page,
     .paper-art--reorder .paper-art__page,
