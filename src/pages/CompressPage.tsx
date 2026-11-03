@@ -45,7 +45,7 @@ export function CompressPage({ onBack }: CompressPageProps) {
     <section aria-labelledby="compress-title" className="workspace">
       <WorkspaceHeading
         description="Choose a compression preset for this sample preview."
-        eyebrow="Smaller files, same document"
+        eyebrow="Smaller files, your choice of quality"
         icon="compress"
         onBack={onBack}
         title="Compress PDF"

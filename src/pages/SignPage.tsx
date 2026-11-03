@@ -131,7 +131,7 @@ export function SignPage({ onBack }: SignPageProps) {
   return (
     <section aria-labelledby="sign-title" className="workspace sign-page">
       <WorkspaceHeading
-        description="Create a signature preview on this sample document."
+        description="Create a signature preview on this sample document. It is a visual mark with no legal value."
         eyebrow="Add your signature"
         icon="sign"
         onBack={onBack}

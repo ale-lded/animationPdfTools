@@ -20,7 +20,7 @@ export const featuredTools: Tool[] = [
     action: 'Merge PDFs',
     actionOneFile: 'Add another PDF',
     actionManyFiles: (count) => `Merge ${count} PDFs`,
-    features: ['Any order', 'No uploads', 'Unlimited'],
+    features: ['Any order', 'No uploads', 'Up to 100 MB each'],
     icon: 'merge',
   },
   {
@@ -30,17 +30,17 @@ export const featuredTools: Tool[] = [
     action: 'Split PDF',
     actionOneFile: 'Split this PDF',
     actionManyFiles: () => 'Choose a PDF to split',
-    features: ['Page ranges', 'Extract', 'Fast'],
+    features: ['Page ranges', 'Extract', 'On your device'],
     icon: 'split',
   },
   {
     id: 'compress',
     title: 'Compress',
-    description: 'Make your PDFs lighter, not worse.',
+    description: 'Make your PDFs lighter, at the quality you choose.',
     action: 'Compress PDF',
     actionOneFile: 'Compress this PDF',
     actionManyFiles: (count) => `Compress ${count} PDFs`,
-    features: ['Smart quality', 'Save space', 'Private'],
+    features: ['3 quality levels', 'Save space', 'Private'],
     icon: 'compress',
   },
   {
@@ -56,11 +56,11 @@ export const featuredTools: Tool[] = [
   {
     id: 'sign',
     title: 'Sign',
-    description: 'Sign documents without printing them.',
+    description: 'Add your name, initials or a drawn signature.',
     action: 'Sign PDF',
     actionOneFile: 'Sign this PDF',
     actionManyFiles: () => 'Choose a PDF to sign',
-    features: ['Draw', 'Type', 'Secure'],
+    features: ['Draw', 'Type', 'Visual only'],
     icon: 'sign',
   },
   {
