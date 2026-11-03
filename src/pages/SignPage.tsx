@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { PointerEvent } from 'react'
 import { Icon } from '../components/Icon'
+import { WorkspaceHeading } from '../components/WorkspaceHeading'
 
 type SignatureMode = 'draw' | 'type' | 'upload'
 
@@ -129,22 +130,14 @@ export function SignPage({ onBack }: SignPageProps) {
 
   return (
     <section aria-labelledby="sign-title" className="workspace sign-page">
-      <button className="back-link" onClick={onBack} type="button">
-        <span aria-hidden="true">←</span>
-        All tools
-      </button>
-      <div className="workspace-heading">
-        <div>
-          <p className="eyebrow">Add your signature</p>
-          <h1 id="sign-title">Sign PDF</h1>
-          <p className="workspace-heading__description">
-            Create a signature preview on this sample document.
-          </p>
-        </div>
-        <span aria-hidden="true" className="workspace-heading__art">
-          <Icon name="sign" size={40} />
-        </span>
-      </div>
+      <WorkspaceHeading
+        description="Create a signature preview on this sample document."
+        eyebrow="Add your signature"
+        icon="sign"
+        onBack={onBack}
+        title="Sign PDF"
+        titleId="sign-title"
+      />
 
       <div className="sign-layout">
         <aside aria-label="Signature options" className="sign-controls">

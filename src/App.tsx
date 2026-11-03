@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { SiteHeader } from './components/SiteHeader'
 import { CompressPage } from './pages/CompressPage'
 import { HomePage } from './pages/HomePage'
@@ -15,6 +15,11 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>('dark')
   const [screen, setScreen] = useState<Screen>('home')
   const [files, setFiles] = useState<File[]>([])
+
+  // Screens share one scroll position, so a new one would open scrolled down.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [screen])
 
   const selectTool = (tool: ToolId) => setScreen(tool)
   const completeMergePreview = useCallback(

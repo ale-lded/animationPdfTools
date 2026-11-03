@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { Icon } from '../components/Icon'
+import { WorkspaceHeading } from '../components/WorkspaceHeading'
 import { addPdfFiles, formatFileSize } from '../lib/pdfFiles'
 
 type SortMode = 'manual' | 'name' | 'date'
@@ -80,22 +81,14 @@ export function MergePage({
 
   return (
     <section aria-labelledby="merge-title" className="workspace">
-      <button className="back-link" onClick={onBack} type="button">
-        <span aria-hidden="true">←</span>
-        All tools
-      </button>
-      <div className="workspace-heading">
-        <div>
-          <p className="eyebrow">Put everything in the right order</p>
-          <h1 id="merge-title">Merge PDFs</h1>
-          <p className="workspace-heading__description">
-            Select files from your device, then arrange them before you continue.
-          </p>
-        </div>
-        <span aria-hidden="true" className="workspace-heading__art">
-          <Icon name="merge" size={40} />
-        </span>
-      </div>
+      <WorkspaceHeading
+        description="Select files from your device, then arrange them before you continue."
+        eyebrow="Put everything in the right order"
+        icon="merge"
+        onBack={onBack}
+        title="Merge PDFs"
+        titleId="merge-title"
+      />
 
       <div className="merge-layout">
         <div className="merge-files">

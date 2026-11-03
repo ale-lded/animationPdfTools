@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Icon } from '../components/Icon'
+import { WorkspaceHeading } from '../components/WorkspaceHeading'
 
 type CompressPageProps = {
   onBack: () => void
@@ -42,22 +43,14 @@ export function CompressPage({ onBack }: CompressPageProps) {
 
   return (
     <section aria-labelledby="compress-title" className="workspace">
-      <button className="back-link" onClick={onBack} type="button">
-        <span aria-hidden="true">←</span>
-        All tools
-      </button>
-      <div className="workspace-heading">
-        <div>
-          <p className="eyebrow">Smaller files, same document</p>
-          <h1 id="compress-title">Compress PDF</h1>
-          <p className="workspace-heading__description">
-            Choose a compression preset for this sample preview.
-          </p>
-        </div>
-        <span aria-hidden="true" className="workspace-heading__art">
-          <Icon name="compress" size={40} />
-        </span>
-      </div>
+      <WorkspaceHeading
+        description="Choose a compression preset for this sample preview."
+        eyebrow="Smaller files, same document"
+        icon="compress"
+        onBack={onBack}
+        title="Compress PDF"
+        titleId="compress-title"
+      />
 
       <div className="compress-layout">
         <section aria-label="Sample compression comparison" className="compare">
