@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { Icon } from '../components/Icon'
-
-const maxFileSize = 100 * 1024 * 1024
+import { addPdfFiles, formatFileSize } from '../lib/pdfFiles'
 
 type SortMode = 'manual' | 'name' | 'date'
 
@@ -10,14 +9,6 @@ type MergePageProps = {
   onFilesChange: (files: File[]) => void
   onStart: (files: File[]) => void
   onBack: () => void
-}
-
-function formatFileSize(bytes: number) {
-  if (bytes < 1024 * 1024) {
-    return `${Math.max(1, Math.round(bytes / 1024))} KB`
-  }
-
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
 export function MergePage({
@@ -47,16 +38,9 @@ export function MergePage({
   const totalSize = files.reduce((total, file) => total + file.size, 0)
 
   function addFiles(fileList: FileList | File[]) {
-    const incomingFiles = Array.from(fileList)
-    const validFiles = incomingFiles.filter((file) => {
-      const isPdf =
-        file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
+    const result = addPdfFiles(files, fileList)
 
-      return isPdf && file.size <= maxFileSize
-    })
-    const rejectedFiles = incomingFiles.length - validFiles.length
-
-    if (rejectedFiles > 0) {
+    if (result.rejected.length > 0) {
       setError(
         'Some files were skipped. Choose PDF files that are no larger than 100 MB each.',
       )
@@ -64,8 +48,8 @@ export function MergePage({
       setError(null)
     }
 
-    if (validFiles.length > 0) {
-      onFilesChange([...files, ...validFiles])
+    if (result.added.length > 0) {
+      onFilesChange(result.files)
       setSortMode('manual')
     }
   }

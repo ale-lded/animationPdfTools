@@ -14,7 +14,7 @@ type Theme = 'dark' | 'light'
 export default function App() {
   const [theme, setTheme] = useState<Theme>('dark')
   const [screen, setScreen] = useState<Screen>('home')
-  const [mergeFiles, setMergeFiles] = useState<File[]>([])
+  const [files, setFiles] = useState<File[]>([])
 
   const selectTool = (tool: ToolId) => setScreen(tool)
   const completeMergePreview = useCallback(
@@ -35,11 +35,15 @@ export default function App() {
       />
       <main className="page-container" id="main-content">
         {screen === 'home' ? (
-          <HomePage onSelectTool={selectTool} />
+          <HomePage
+            files={files}
+            onFilesChange={setFiles}
+            onSelectTool={selectTool}
+          />
         ) : screen === 'merge' ? (
           <MergePage
-            files={mergeFiles}
-            onFilesChange={setMergeFiles}
+            files={files}
+            onFilesChange={setFiles}
             onBack={() => setScreen('home')}
             onStart={() => setScreen('progress')}
           />
@@ -49,13 +53,13 @@ export default function App() {
           <SignPage onBack={() => setScreen('home')} />
         ) : screen === 'progress' ? (
           <ProgressPage
-            fileCount={mergeFiles.length}
+            fileCount={files.length}
             onCancel={() => setScreen('merge')}
             onComplete={completeMergePreview}
           />
         ) : screen === 'result' ? (
           <ResultPage
-            files={mergeFiles}
+            files={files}
             onHome={() => setScreen('home')}
             onRetry={() => setScreen('merge')}
           />

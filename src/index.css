@@ -206,9 +206,9 @@
 
   .hero {
     display: grid;
-    min-height: 610px;
+    padding-top: 44px;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    align-items: center;
+    align-items: start;
     gap: clamp(32px, 5vw, 72px);
   }
 
@@ -310,30 +310,146 @@
     width: 100%;
     max-width: 704px;
     margin-inline: auto;
+    align-self: end;
   }
 
   .tool-accordion {
+    --shelf-light: #8a6238;
+    --shelf-mid: #6b4a29;
+    --shelf-dark: #3f2a16;
+    position: relative;
     display: flex;
     height: 440px;
+    margin-bottom: 30px;
+    align-items: flex-end;
     gap: 10px;
   }
 
+  .app[data-theme='light'] .tool-accordion {
+    --shelf-light: #c49a63;
+    --shelf-mid: #a67c4a;
+    --shelf-dark: #6f4f2c;
+  }
+
+  /* The shelf the volumes stand on */
+  .tool-accordion::after {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    height: 16px;
+    border-radius: 2px;
+    background: linear-gradient(
+      var(--shelf-light),
+      var(--shelf-mid) 30%,
+      var(--shelf-dark)
+    );
+    box-shadow: 0 14px 20px rgb(0 0 0 / 28%);
+    content: '';
+  }
+
   .accordion-panel {
+    --book-gold: #d2b077;
+    --book-cream: #f6ecd8;
     position: relative;
+    height: 100%;
     min-width: 48px;
     flex: 0 0 48px;
     overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: 26px;
-    background: var(--surface-raised);
+    border: 1px solid rgb(0 0 0 / 35%);
+    border-radius: 7px 7px 3px 3px;
+    background:
+      linear-gradient(var(--book-gold), var(--book-gold)) 0 64px / 100% 2px
+        no-repeat,
+      linear-gradient(var(--book-gold), var(--book-gold)) 0 69px / 100% 1px
+        no-repeat,
+      linear-gradient(var(--book-gold), var(--book-gold)) 0 calc(100% - 42px) /
+        100% 1px no-repeat,
+      linear-gradient(var(--book-gold), var(--book-gold)) 0 calc(100% - 37px) /
+        100% 2px no-repeat,
+      linear-gradient(
+        90deg,
+        rgb(255 255 255 / 12%),
+        transparent 30%,
+        transparent 72%,
+        rgb(0 0 0 / 26%)
+      ),
+      var(--book-leather);
+    color: var(--book-cream);
     transition:
       flex-basis 650ms cubic-bezier(0.2, 0.75, 0.3, 1),
-      border-color 240ms ease;
+      height 400ms ease;
+  }
+
+  .accordion-panel--merge {
+    --book-leather: #6f2b25;
+    --book-leather-dark: #4c1b17;
+    --book-drop: 0px;
+  }
+
+  .accordion-panel--split {
+    --book-leather: #2f4e3b;
+    --book-leather-dark: #1e3427;
+    --book-drop: 26px;
+  }
+
+  .accordion-panel--compress {
+    --book-leather: #27405f;
+    --book-leather-dark: #182a40;
+    --book-drop: 10px;
+  }
+
+  .accordion-panel--reorder {
+    --book-leather: #4c3152;
+    --book-leather-dark: #322036;
+    --book-drop: 34px;
+  }
+
+  .accordion-panel--sign {
+    --book-leather: #6d4b1f;
+    --book-leather-dark: #4a3213;
+    --book-drop: 6px;
+  }
+
+  .accordion-panel--protect {
+    --book-leather: #2a4d52;
+    --book-leather-dark: #1a3437;
+    --book-drop: 20px;
+  }
+
+  .accordion-panel:not(.accordion-panel--active) {
+    height: calc(100% - var(--book-drop));
   }
 
   .accordion-panel--active {
-    flex-basis: min(360px, 55%);
-    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+    /* Never wider than the space left by the five closed volumes and the gaps */
+    flex-basis: min(360px, calc(100% - 290px));
+    background:
+      linear-gradient(
+        90deg,
+        rgb(0 0 0 / 30%),
+        rgb(255 255 255 / 7%) 6px,
+        transparent 16px
+      ),
+      linear-gradient(160deg, var(--book-leather), var(--book-leather-dark));
+    box-shadow:
+      inset 0 0 0 5px var(--book-leather-dark),
+      inset 0 0 0 6px rgb(210 176 119 / 55%);
+  }
+
+  /* Parchment pages: the sheets read their colors from these two variables */
+  .accordion-panel .paper-art {
+    --surface: #efe5cf;
+    --border: #c5b28f;
+    transition: opacity 250ms ease;
+  }
+
+  .accordion-panel:not(.accordion-panel--active) .paper-art {
+    opacity: 0;
+  }
+
+  .accordion-panel .paper-art__glow {
+    display: none;
   }
 
   .accordion-panel__toggle {
@@ -347,22 +463,36 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: var(--text);
+    color: var(--book-cream);
     text-align: left;
+  }
+
+  .accordion-panel button:focus-visible {
+    outline-color: var(--book-cream);
+    outline-offset: 2px;
   }
 
   .accordion-panel:not(.accordion-panel--active) .accordion-panel__toggle {
     top: 18px;
-    left: 5px;
+    left: 3px;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
   }
 
   .accordion-panel__collapsed-title {
+    padding: 8px 3px;
+    border-radius: 3px;
+    background: rgb(0 0 0 / 28%);
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     font-size: 13px;
     font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .accordion-panel .icon-disc {
+    background: rgb(0 0 0 / 24%);
+    color: var(--book-gold);
   }
 
   .icon-disc {
@@ -379,9 +509,9 @@
   .accordion-panel__content {
     position: absolute;
     z-index: 2;
-    right: 20px;
-    bottom: 20px;
-    left: 20px;
+    right: 24px;
+    bottom: 24px;
+    left: 24px;
   }
 
   .accordion-panel__content[hidden] {
@@ -397,7 +527,7 @@
 
   .accordion-panel__copy p {
     margin: 7px 0 0;
-    color: var(--muted);
+    color: rgb(246 236 216 / 78%);
     font-size: 13px;
     white-space: nowrap;
   }
@@ -413,22 +543,244 @@
 
   .feature-pills li {
     padding: 5px 8px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--muted);
+    border: 1px solid rgb(210 176 119 / 50%);
+    border-radius: 5px;
+    color: var(--book-cream);
     font-size: 11px;
   }
 
   .accordion-panel__action {
     width: 100%;
     justify-content: space-between;
+    border-radius: 7px;
   }
 
   .hero__hint {
     margin: 14px 0 0;
+    overflow: hidden;
+    line-height: 18px;
     color: var(--muted);
     font-size: 12px;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hero__hint--ready {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .accordion-panel__badge {
+    display: inline-block;
+    margin-left: 9px;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background: var(--book-gold);
+    color: #2a1b08;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.2;
+    vertical-align: middle;
+  }
+
+  .paper-art__name {
+    position: absolute;
+    top: 9px;
+    right: 8px;
+    left: 12px;
+    overflow: hidden;
+    color: #5b4726;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .paper-art--compress .paper-art__name {
+    top: 5px;
+    left: 8px;
+    font-size: 7px;
+  }
+
+  .upload-stack {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .upload-stack .hero__actions {
+    flex: 0 0 auto;
+    margin-top: 0;
+  }
+
+  .drop-zone {
+    display: grid;
+    min-height: 64px;
+    flex: 0 0 auto;
+    place-items: center;
+    padding: 10px;
+    border: 1.5px dashed color-mix(in srgb, var(--text) 22%, transparent);
+    border-radius: 14px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .file-box {
+    display: flex;
+    min-height: 0;
+    flex: 0 1 auto;
+    flex-direction: column;
+    padding: 10px 12px 12px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  .file-box:focus {
+    outline: none;
+  }
+
+  .file-box__head {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 10px;
+    margin: 0 2px 8px;
+  }
+
+  .file-box__title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .file-box__total {
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .file-box__replace {
+    margin-left: auto;
+    padding: 3px 9px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .file-box__replace:hover {
+    background: var(--surface-raised);
+  }
+
+  .file-box__list {
+    display: grid;
+    min-height: 34px;
+    flex: 0 1 auto;
+    align-content: start;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  .file-box__row {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 4px 4px 6px;
+    border-radius: 8px;
+    background: var(--surface-raised);
+  }
+
+  .file-box__icon {
+    display: grid;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent);
+  }
+
+  .file-box__name {
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .file-box__size {
+    flex: 0 0 auto;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .file-box__remove {
+    display: grid;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--muted);
+  }
+
+  .file-box__remove:hover {
+    background: var(--border);
+    color: var(--text);
+  }
+
+  .file-box__note {
+    flex: 0 0 auto;
+    margin: 8px 2px 0;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .upload-error {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 9px 12px;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+
+  .drop-veil {
+    position: fixed;
+    z-index: 40;
+    inset: 12px;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--accent);
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(3px);
+    color: var(--text);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    pointer-events: none;
   }
 
   .more-tools {
@@ -1515,14 +1867,27 @@
   .tool-accordion {
     height: auto;
     flex-direction: column;
+    align-items: stretch;
     gap: 7px;
   }
 
-  .accordion-panel {
+  .accordion-panel,
+  .accordion-panel:not(.accordion-panel--active) {
+    height: auto;
     min-width: 0;
     min-height: 46px;
     flex-basis: 46px;
-    border-radius: 15px;
+  }
+
+  /* Volumes lying flat: the bands run across the spine's short side */
+  .accordion-panel:not(.accordion-panel--active) {
+    background:
+      linear-gradient(var(--book-gold), var(--book-gold)) calc(100% - 34px) 0 /
+        2px 100% no-repeat,
+      linear-gradient(var(--book-gold), var(--book-gold)) calc(100% - 39px) 0 /
+        1px 100% no-repeat,
+      linear-gradient(rgb(255 255 255 / 12%), transparent 40%, rgb(0 0 0 / 26%)),
+      var(--book-leather);
   }
 
   .accordion-panel--active {
@@ -1543,14 +1908,15 @@
   }
 
   .accordion-panel__collapsed-title {
+    padding: 3px 8px;
     writing-mode: horizontal-tb;
     transform: none;
   }
 
   .accordion-panel__content {
-    right: 12px;
-    bottom: 14px;
-    left: 12px;
+    right: 14px;
+    bottom: 16px;
+    left: 14px;
   }
 
   .accordion-panel__copy h2 {
@@ -1658,6 +2024,12 @@
   }
 }
 
+@media (min-width: 601px) and (max-width: 700px) {
+  .accordion-panel__copy p {
+    white-space: normal;
+  }
+}
+
 @media (min-width: 601px) and (max-width: 1300px) {
   .hero {
     min-height: auto;
@@ -1687,6 +2059,67 @@
   .sign-layout {
     grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
     gap: 14px;
+  }
+}
+
+/*
+ * Side-by-side hero: the upload button shares its baseline with the shelf and
+ * the file box grows upward from it. The hero has a fixed height so the title
+ * is what stops the box, and the list scrolls from there.
+ */
+@media (min-width: 1301px) {
+  .hero {
+    height: max(560px, min(690px, calc(100vh - 140px)));
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .hero__copy {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
+    /* Matches the space the hint takes below the shelf */
+    padding-bottom: 32px;
+  }
+
+  .hero__copy > :not(.upload-stack) {
+    flex: 0 0 auto;
+  }
+
+  .hero__copy .privacy-badge {
+    align-self: flex-start;
+  }
+
+  .hero__copy h1 {
+    margin-bottom: 0;
+  }
+
+  .hero__description {
+    margin-top: 18px;
+  }
+
+  .upload-stack {
+    flex: 0 1 auto;
+    margin-top: auto;
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .file-box__list {
+    max-height: 134px;
+  }
+}
+
+@media (max-height: 820px) {
+  .file-box__note {
+    display: none;
+  }
+}
+
+@media (min-width: 1301px) and (max-height: 760px) {
+  .hero h1 {
+    font-size: 60px;
   }
 }
 
