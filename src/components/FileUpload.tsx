@@ -98,9 +98,11 @@ export function FileUpload({
           <Icon name="upload" />
           {count === 0 ? 'Upload a PDF' : 'Add more PDFs'}
         </button>
+        {/* Points at the More tools section, temporarily hidden.
         <a className="button button--ghost button--large" href="#more-tools">
           See all tools
         </a>
+        */}
       </div>
     </div>
   )

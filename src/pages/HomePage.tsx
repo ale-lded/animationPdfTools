@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { FileUpload } from '../components/FileUpload'
 import { Icon } from '../components/Icon'
-import { MoreToolsGrid } from '../components/MoreToolsGrid'
+// More tools temporarily hidden: restore together with the grid below.
+// import { MoreToolsGrid } from '../components/MoreToolsGrid'
 import { ToolAccordion } from '../components/ToolAccordion'
 import { addPdfFiles, type RejectedFile } from '../lib/pdfFiles'
 import type { ToolId } from '../types'
@@ -226,7 +227,9 @@ export function HomePage({
           </p>
         </div>
       </section>
+      {/* More tools temporarily hidden.
       <MoreToolsGrid onSelectTool={onSelectTool} />
+      */}
       {isDragging && (
         <div aria-hidden="true" className="drop-veil">
           Drop your PDFs anywhere
