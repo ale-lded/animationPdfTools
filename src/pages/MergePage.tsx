@@ -3,7 +3,6 @@ import { Icon } from '../components/Icon'
 import { WorkspaceHeading } from '../components/WorkspaceHeading'
 import { addPdfFiles, formatFileSize } from '../lib/pdfFiles'
 
-
 type SortMode = 'manual' | 'name' | 'date'
 
 type MergePageProps = {
@@ -24,7 +23,6 @@ export function MergePage({
 }: MergePageProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [sortMode, setSortMode] = useState<SortMode>('manual')
-  const [keepBookmarks, setKeepBookmarks] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
 
@@ -144,10 +142,10 @@ export function MergePage({
               type="file"
             />
           </div>
-         {error && (
-          <p className="form-message form-message--error" role="alert">
-            {error}
-          </p>
+          {error && (
+            <p className="form-message form-message--error" role="alert">
+              {error}
+            </p>
           )}
           {mergeError && (
             <p className="form-message form-message--error" role="alert">
@@ -257,25 +255,9 @@ export function MergePage({
             </p>
           </div>
           <div className="options__divider" />
-          <div className="toggle-row">
-            <span>
-              <strong>Keep bookmarks</strong>
-              <small>Preserve document outlines</small>
-            </span>
-            <button
-              aria-checked={keepBookmarks}
-              aria-label="Keep bookmarks"
-              className={`switch${keepBookmarks ? ' switch--on' : ''}`}
-              onClick={() => setKeepBookmarks((current) => !current)}
-              role="switch"
-              type="button"
-            >
-              <span />
-            </button>
-          </div>
           <p className="privacy-note">
             <Icon name="lock" size={14} />
-            Demo only — files are not processed or uploaded.
+            Your files stay on your device. Nothing is uploaded.
           </p>
           <button
             className="button button--primary merge-button"
@@ -283,7 +265,7 @@ export function MergePage({
             onClick={() => onStart(visibleFiles)}
             type="button"
           >
-            Continue
+            Merge PDFs
             <Icon name="arrow" size={17} />
           </button>
           <button

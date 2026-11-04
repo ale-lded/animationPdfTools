@@ -2,13 +2,13 @@
 
 A private PDF toolkit that runs entirely in the browser. No backend, no accounts, no file storage: documents are meant to stay on the user's device from start to finish.
 
-> **Status: early development.** The interface is built, but PDF processing is not implemented yet. The merge, compress and sign screens are previews, and the other tools are placeholders. No tool produces a real output file today.
+> **Status: early development.** Merge works. The compress and sign screens are still previews, and the other tools are placeholders.
 
 ## Tools
 
-| Tool | What it will do | Status |
+| Tool | What it does | Status |
 | --- | --- | --- |
-| Merge | Combine several PDFs in a chosen order | Interface preview |
+| Merge | Combine several PDFs in a chosen order | Working |
 | Split | Split a document by page ranges | Placeholder |
 | Compress | Reduce file size with three quality levels | Interface preview |
 | Reorder | Reorder, rotate and delete pages | Placeholder |
@@ -17,11 +17,11 @@ A private PDF toolkit that runs entirely in the browser. No backend, no accounts
 
 **Sign adds a visual mark only.** It is not a certificate-based digital signature and has no legal value.
 
-## How it will work
+## How it works
 
 1. The user picks one or more files, which the browser reads into memory.
-2. A library running in the page processes them. Long jobs run in a Web Worker so the interface stays responsive.
-3. The result is offered as a local download, then released from memory.
+2. A library running in the page processes them. Merge runs on the main thread for now, so very large files can make the page less responsive. Moving long jobs to a Web Worker is planned.
+3. The result is offered as a local download, and is released from memory when the user leaves the result screen.
 
 There is no server to upload to, so one visitor's files cannot reach another visitor. Each browser tab holds its own data.
 
@@ -30,10 +30,11 @@ Client-side processing has real trade-offs:
 - Available memory and speed depend on the user's device, and phones have much less headroom than desktops.
 - Very large files can fail. The app currently rejects PDFs over 100 MB.
 - Closing or reloading the tab discards any work in progress.
+- Merge keeps page content but not bookmarks, forms or other document-level data.
 
-## Planned libraries
+## Libraries
 
-None of these are installed yet. Each choice will be confirmed when its tool is built.
+pdf-lib is in use. The others are planned, and each choice will be confirmed when its tool is built.
 
 | Library | Purpose | License |
 | --- | --- | --- |

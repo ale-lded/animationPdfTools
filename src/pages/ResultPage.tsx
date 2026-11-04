@@ -1,54 +1,39 @@
 import { Icon } from '../components/Icon'
+import { downloadFile } from '../lib/downloadFile'
+import { formatFileSize } from '../lib/pdfFiles'
 
 type ResultPageProps = {
   files: File[]
+  mergedPdf: Blob | null
   onRetry: () => void
   onHome: () => void
 }
 
-export function ResultPage({ files, onRetry, onHome }: ResultPageProps) {
+export function ResultPage({ files, mergedPdf, onRetry, onHome }: ResultPageProps) {
   return (
     <section aria-labelledby="result-title" className="center-state">
       <div className="result-card">
         <span aria-hidden="true" className="result-icon">
           <Icon name="check" size={28} />
         </span>
-        <p className="eyebrow">Prototype preview</p>
-        <h1 id="result-title">That is the end of the demo.</h1>
+        <h1 id="result-title">Your PDF is ready</h1>
         <p className="result-card__description">
-          The merge flow was previewed with {files.length}{' '}
-          {files.length === 1 ? 'selected file' : 'selected files'}. No combined
-          PDF was generated.
+          {files.length} files merged
+          {mergedPdf && <> · {formatFileSize(mergedPdf.size)}</>}
         </p>
-        <div className="result-file-list">
-          {files.map((file, index) => (
-            <div
-              className="result-file"
-              key={`${file.name}-${file.lastModified}-${index}`}
-            >
-              <span className="file-row__icon">
-                <Icon name="file" size={18} />
-              </span>
-              <span>
-                <strong>{file.name}</strong>
-                <small>Demo input · unchanged</small>
-              </span>
-            </div>
-          ))}
-        </div>
         <div className="result-actions">
           <button
             className="button button--primary"
-            onClick={onRetry}
+            disabled={!mergedPdf}
+            onClick={() => mergedPdf && downloadFile(mergedPdf, 'merged.pdf')}
             type="button"
           >
+            Download PDF
+          </button>
+          <button className="button button--secondary" onClick={onRetry} type="button">
             Back to merge
           </button>
-          <button
-            className="button button--secondary"
-            onClick={onHome}
-            type="button"
-          >
+          <button className="button button--ghost" onClick={onHome} type="button">
             All tools
           </button>
         </div>

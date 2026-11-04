@@ -17,7 +17,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>('home')
   const [files, setFiles] = useState<File[]>([])
   const [mergeError, setMergeError] = useState<string | null>(null)
-
+  const [mergedPdf, setMergedPdf] = useState<Blob | null>(null)
 
   // Screens share one scroll position, so a new one would open scrolled down.
   useEffect(() => {
@@ -27,30 +27,28 @@ export default function App() {
   const selectTool = (tool: ToolId) => setScreen(tool)
 
   async function startMerge(orderedFiles: File[]) {
-  setMergeError(null)
-  setScreen('progress')
+    setMergeError(null)
+    setMergedPdf(null)
+    setScreen('progress')
 
-  try {
-    const [mergedBytes] = await Promise.all([
-      mergePdfs(orderedFiles),
-      new Promise((resolve) => setTimeout(resolve, 800)),
-    ])
+    try {
+      const [mergedBytes] = await Promise.all([
+        mergePdfs(orderedFiles),
+        new Promise((resolve) => setTimeout(resolve, 800)),
+      ])
 
-    console.log('PDF unito, byte:', mergedBytes.length)
-
-    const blob = new Blob([mergedBytes.slice()], { type: 'application/pdf' })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = 'merged.pdf'
-    link.click()
-    setScreen('result')
-  } catch (error) {
-    setMergeError(error instanceof Error ? error.message : 'Something went wrong while merging your PDFs.')
-    setScreen('merge')
-
+      const blob = new Blob([mergedBytes.slice()], { type: 'application/pdf' })
+      setMergedPdf(blob)
+      setScreen('result')
+    } catch (error) {
+      setMergeError(
+        error instanceof Error
+          ? error.message
+          : 'Something went wrong while merging your PDFs.',
+      )
+      setScreen('merge')
+    }
   }
-}
 
   return (
     <div className="app" data-theme={theme}>
@@ -95,8 +93,15 @@ export default function App() {
         ) : screen === 'result' ? (
           <ResultPage
             files={files}
-            onHome={() => setScreen('home')}
-            onRetry={() => setScreen('merge')}
+            mergedPdf={mergedPdf}
+            onHome={() => {
+              setMergedPdf(null)
+              setScreen('home')
+            }}
+            onRetry={() => {
+              setMergedPdf(null)
+              setScreen('merge')
+            }}
           />
         ) : (
           <ToolPlaceholder
