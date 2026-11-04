@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { Icon } from '../components/Icon'
 import { WorkspaceHeading } from '../components/WorkspaceHeading'
-import { addPdfFiles, formatFileSize } from '../lib/pdfFiles'
+import { addPdfFiles, formatFileSize, maxFiles, maxTotalSize } from '../lib/pdfFiles'
 
 type SortMode = 'manual' | 'name' | 'date'
 
@@ -39,6 +39,8 @@ export function MergePage({
   }, [files, sortMode])
 
   const totalSize = files.reduce((total, file) => total + file.size, 0)
+  const isOverFileCount = files.length > maxFiles
+  const isOverTotalSize = totalSize > maxTotalSize
 
   function addFiles(fileList: FileList | File[]) {
     const result = addPdfFiles(files, fileList)
@@ -158,7 +160,7 @@ export function MergePage({
           <div className="file-list-heading">
             <div>
               <h2>Your files</h2>
-              <p>Use the arrows to set the final order.</p>
+              <p>Use the arrows to set the final order. Up to 20 files, 600 MB in total.</p>
             </div>
             {files.length > 0 && (
               <label className="sort-control">
@@ -234,6 +236,7 @@ export function MergePage({
                         onFilesChange(
                           files.filter((candidate) => candidate !== file),
                         )
+                        setError(null)
                       }}
                       type="button"
                     >
@@ -259,9 +262,22 @@ export function MergePage({
             <Icon name="lock" size={14} />
             Your files stay on your device. Nothing is uploaded.
           </p>
+          {isOverFileCount && (
+            <p className="form-message form-message--error" role="alert">
+              You have {files.length} files. The limit is {maxFiles}, so remove
+              at least {files.length - maxFiles} to continue.
+            </p>
+          )}
+          {isOverTotalSize && (
+            <p className="form-message form-message--error" role="alert">
+              Your files total {formatFileSize(totalSize)}. The limit is 600 MB,
+              so remove at least {formatFileSize(totalSize - maxTotalSize)} to
+              continue.
+            </p>
+          )}
           <button
             className="button button--primary merge-button"
-            disabled={files.length < 2}
+            disabled={files.length < 2 || isOverFileCount || isOverTotalSize}
             onClick={() => onStart(visibleFiles)}
             type="button"
           >

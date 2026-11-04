@@ -1,4 +1,6 @@
 export const maxFileSize = 100 * 1024 * 1024
+export const maxFiles = 20
+export const maxTotalSize = 600 * 1024 * 1024
 
 export type RejectedFile = {
   file: File
@@ -26,6 +28,8 @@ function fileKey(file: File) {
 /**
  * Adds the incoming files to the current list. Anything that isn't a PDF or is
  * over the size limit is rejected, and files already in the list are skipped.
+ * The limits on file count and total size are checked before processing, not
+ * here, because adding a file to the list doesn't read it.
  */
 export function addPdfFiles(current: File[], incoming: FileList | File[]) {
   const seen = new Set(current.map(fileKey))
