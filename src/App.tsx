@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SiteHeader } from './components/SiteHeader'
 import { CompressPage } from './pages/CompressPage'
 import { HomePage } from './pages/HomePage'
@@ -7,6 +7,7 @@ import { ProgressPage } from './pages/ProgressPage'
 import { ResultPage } from './pages/ResultPage'
 import { SignPage } from './pages/SignPage'
 import { ToolPlaceholder } from './pages/ToolPlaceholder'
+import { mergePdfs } from './lib/mergePdfs'
 import type { Screen, ToolId } from './types'
 
 type Theme = 'dark' | 'light'
@@ -15,6 +16,8 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>('dark')
   const [screen, setScreen] = useState<Screen>('home')
   const [files, setFiles] = useState<File[]>([])
+  const [mergeError, setMergeError] = useState<string | null>(null)
+
 
   // Screens share one scroll position, so a new one would open scrolled down.
   useEffect(() => {
@@ -22,10 +25,32 @@ export default function App() {
   }, [screen])
 
   const selectTool = (tool: ToolId) => setScreen(tool)
-  const completeMergePreview = useCallback(
-    () => setScreen('result'),
-    [setScreen],
-  )
+
+  async function startMerge(orderedFiles: File[]) {
+  setMergeError(null)
+  setScreen('progress')
+
+  try {
+    const [mergedBytes] = await Promise.all([
+      mergePdfs(orderedFiles),
+      new Promise((resolve) => setTimeout(resolve, 800)),
+    ])
+
+    console.log('PDF unito, byte:', mergedBytes.length)
+
+    const blob = new Blob([mergedBytes.slice()], { type: 'application/pdf' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'merged.pdf'
+    link.click()
+    setScreen('result')
+  } catch (error) {
+    setMergeError(error instanceof Error ? error.message : 'Something went wrong while merging your PDFs.')
+    setScreen('merge')
+
+  }
+}
 
   return (
     <div className="app" data-theme={theme}>
@@ -48,9 +73,16 @@ export default function App() {
         ) : screen === 'merge' ? (
           <MergePage
             files={files}
-            onFilesChange={setFiles}
-            onBack={() => setScreen('home')}
-            onStart={() => setScreen('progress')}
+            onFilesChange={(nextFiles) => {
+              setFiles(nextFiles)
+              setMergeError(null)
+            }}
+            onBack={() => {
+              setScreen('home')
+              setMergeError(null)
+            }}
+            onStart={startMerge}
+            mergeError={mergeError}
           />
         ) : screen === 'compress' ? (
           <CompressPage onBack={() => setScreen('home')} />
@@ -59,8 +91,6 @@ export default function App() {
         ) : screen === 'progress' ? (
           <ProgressPage
             fileCount={files.length}
-            onCancel={() => setScreen('merge')}
-            onComplete={completeMergePreview}
           />
         ) : screen === 'result' ? (
           <ResultPage

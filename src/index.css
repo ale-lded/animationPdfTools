@@ -1050,8 +1050,13 @@
   }
 
   .form-message--error {
-    color: #ff8e78;
-  }
+  padding: 10px 12px;
+  border: 1px solid #ff8e78;
+  border-radius: 12px;
+  color: #ff8e78;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
   .file-list-heading {
     display: flex;
@@ -1382,6 +1387,17 @@
     background: var(--accent);
     transition: width 180ms ease;
   }
+
+  .progress-track__loop {
+    width: 40%;
+    animation: progress-loop 1.2s ease-in-out infinite;
+  }
+
+  @keyframes progress-loop {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(250%); }
+  }
+
 
   .process-card__note {
     margin: 12px 0 24px;

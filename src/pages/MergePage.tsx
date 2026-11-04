@@ -3,6 +3,7 @@ import { Icon } from '../components/Icon'
 import { WorkspaceHeading } from '../components/WorkspaceHeading'
 import { addPdfFiles, formatFileSize } from '../lib/pdfFiles'
 
+
 type SortMode = 'manual' | 'name' | 'date'
 
 type MergePageProps = {
@@ -10,13 +11,16 @@ type MergePageProps = {
   onFilesChange: (files: File[]) => void
   onStart: (files: File[]) => void
   onBack: () => void
+  mergeError: string | null
 }
+
 
 export function MergePage({
   files,
   onFilesChange,
   onStart,
   onBack,
+  mergeError,
 }: MergePageProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [sortMode, setSortMode] = useState<SortMode>('manual')
@@ -140,11 +144,18 @@ export function MergePage({
               type="file"
             />
           </div>
-          {error && (
+         {error && (
+          <p className="form-message form-message--error" role="alert">
+            {error}
+          </p>
+          )}
+          {mergeError && (
             <p className="form-message form-message--error" role="alert">
-              {error}
+              {mergeError}
             </p>
           )}
+
+
 
           <div className="file-list-heading">
             <div>
@@ -269,7 +280,7 @@ export function MergePage({
           <button
             className="button button--primary merge-button"
             disabled={files.length < 2}
-            onClick={() => onStart(files)}
+            onClick={() => onStart(visibleFiles)}
             type="button"
           >
             Continue
