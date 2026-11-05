@@ -25,6 +25,9 @@ export function MergePage({
   const [sortMode, setSortMode] = useState<SortMode>('manual')
   const [error, setError] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+  const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null)
+  const canReorder = sortMode === 'manual'
 
   const visibleFiles = useMemo(() => {
     if (sortMode === 'name') {
@@ -59,22 +62,33 @@ export function MergePage({
     }
   }
 
-  function moveFile(index: number, offset: -1 | 1) {
-    const targetIndex = index + offset
-
-    if (targetIndex < 0 || targetIndex >= files.length) {
+  function moveFileTo(fromIndex: number, toIndex: number) {
+    if (
+      fromIndex === toIndex ||
+      toIndex < 0 ||
+      toIndex >= files.length
+    ) {
       return
     }
 
     const nextFiles = [...files]
-    const [movedFile] = nextFiles.splice(index, 1)
+    const [movedFile] = nextFiles.splice(fromIndex, 1)
 
     if (movedFile) {
-      nextFiles.splice(targetIndex, 0, movedFile)
+      nextFiles.splice(toIndex, 0, movedFile)
     }
 
     onFilesChange(nextFiles)
     setSortMode('manual')
+  }
+
+  function moveFile(index: number, offset: -1 | 1) {
+    moveFileTo(index, index + offset)
+  }
+
+  function resetRowDrag() {
+    setDraggedIndex(null)
+    setDropTargetIndex(null)
   }
 
   function handleDrop(event: React.DragEvent<HTMLDivElement>) {
@@ -100,7 +114,11 @@ export function MergePage({
             className={`upload-box${isDragging ? ' upload-box--active' : ''}`}
             onDragEnter={(event) => {
               event.preventDefault()
-              setIsDragging(true)
+
+              // Only highlight for files coming from the device, not for list rows.
+              if (event.dataTransfer.types.includes('Files')) {
+                setIsDragging(true)
+              }
             }}
             onDragLeave={(event) => {
               const nextTarget = event.relatedTarget
@@ -197,7 +215,45 @@ export function MergePage({
           ) : (
             <ol aria-label="PDF merge order" className="file-list">
               {visibleFiles.map((file, index) => (
-                <li className="file-row" key={`${file.name}-${file.lastModified}-${index}`}>
+                <li
+                  className={[
+                    'file-row',
+                    canReorder && 'file-row--draggable',
+                    draggedIndex === index && 'file-row--dragging',
+                    dropTargetIndex === index &&
+                      draggedIndex !== index &&
+                      'file-row--drop-target',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  draggable={canReorder}
+                  key={`${file.name}-${file.lastModified}-${index}`}
+                  onDragEnd={resetRowDrag}
+                  onDragOver={(event) => {
+                    if (draggedIndex === null) {
+                      return
+                    }
+
+                    event.preventDefault()
+                    event.dataTransfer.dropEffect = 'move'
+                    setDropTargetIndex(index)
+                  }}
+                  onDragStart={(event) => {
+                    event.dataTransfer.effectAllowed = 'move'
+                    // Firefox needs some data set before it starts a drag.
+                    event.dataTransfer.setData('text/plain', String(index))
+                    setDraggedIndex(index)
+                  }}
+                  onDrop={(event) => {
+                    event.preventDefault()
+
+                    if (draggedIndex !== null) {
+                      moveFileTo(draggedIndex, index)
+                    }
+
+                    resetRowDrag()
+                  }}
+                >
                   <span className="file-row__number">
                     {String(index + 1).padStart(2, '0')}
                   </span>
@@ -211,7 +267,7 @@ export function MergePage({
                   <div className="file-row__actions">
                     <button
                       aria-label={`Move ${file.name} up`}
-                      className="icon-button"
+                      className="icon-button icon-button--move"
                       disabled={index === 0 || sortMode !== 'manual'}
                       onClick={() => moveFile(index, -1)}
                       type="button"
@@ -220,7 +276,7 @@ export function MergePage({
                     </button>
                     <button
                       aria-label={`Move ${file.name} down`}
-                      className="icon-button"
+                      className="icon-button icon-button--move"
                       disabled={
                         index === visibleFiles.length - 1 || sortMode !== 'manual'
                       }

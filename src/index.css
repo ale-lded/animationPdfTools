@@ -890,10 +890,39 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 0;
-    border: 0;
+    padding: 9px 18px;
+    border: 1.5px solid var(--accent);
+    border-radius: 999px;
     background: transparent;
-    color: var(--muted);
+    color: var(--text);
+    font-weight: 600;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .back-link__arrow {
+    display: inline-block;
+    font-size: 1.1em;
+    transition: transform 200ms ease;
+  }
+
+  .back-link:hover {
+    background: var(--accent);
+    color: var(--accent-contrast);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  .back-link:hover .back-link__arrow {
+    transform: translateX(-4px);
+  }
+
+  .back-link:active {
+    transform: translateY(0);
+    box-shadow: none;
   }
 
   .tool-placeholder .back-link {
@@ -1205,6 +1234,37 @@
   .icon-button:disabled {
     cursor: not-allowed;
     opacity: 0.35;
+  }
+
+  .icon-button--move {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .icon-button--move:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    color: var(--accent);
+  }
+
+  .file-row--draggable {
+    cursor: grab;
+  }
+
+  .file-row--draggable:active {
+    cursor: grabbing;
+  }
+
+  .file-row--dragging {
+    opacity: 0.45;
+  }
+
+  .file-row--drop-target {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
   }
 
   .options {
@@ -2050,6 +2110,12 @@
 @media (min-width: 601px) and (max-width: 700px) {
   .accordion-panel__copy p {
     white-space: normal;
+  }
+
+  .icon-button--move {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
   }
 }
 

@@ -30,7 +30,7 @@ export function WorkspaceHeading({
         <p className="workspace-heading__description">{description}</p>
       </div>
       <button className="back-link" onClick={onBack} type="button">
-        <span aria-hidden="true">←</span>
+        <span aria-hidden="true" className="back-link__arrow">←</span>
         All tools
       </button>
     </header>

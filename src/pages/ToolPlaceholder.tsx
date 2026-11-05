@@ -20,7 +20,7 @@ export function ToolPlaceholder({ tool, onBack }: ToolPlaceholderProps) {
   return (
     <section aria-labelledby="tool-placeholder-title" className="tool-placeholder">
       <button className="back-link" onClick={onBack} type="button">
-        <span aria-hidden="true">←</span>
+        <span aria-hidden="true" className="back-link__arrow">←</span>
         All tools
       </button>
       <div className="tool-placeholder__card">
